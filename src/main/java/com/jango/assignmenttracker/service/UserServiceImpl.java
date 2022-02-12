@@ -146,10 +146,8 @@ public class UserServiceImpl implements UserService{
         log.info("matchComparator  {}",matchComparator.size());
 
     long totalMatched=   matchComparator.stream().filter(data-> data==1).count();
-            log.info("totalMatched  {}",totalMatched);
             double percentage = (totalMatched/ (double) matchComparator.size())*100;
-        log.info("percentage  {}",percentage);
-      return  String.format("%.1f", percentage)+"%";
+            return  String.format("%.1f", percentage)+"%";
     }
 
 
