@@ -9,19 +9,12 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map;
 
 @Component
 @Slf4j
 public class CloudinaryUpload {
 
-    Cloudinary cloudinary;
-
-    @Value("max-file-size")
-    private static long maxUploadSize;
 
     public CloudinaryUpload(){
         log.info("==============Cloudinary upload Constructor=============");
@@ -65,7 +58,6 @@ public class CloudinaryUpload {
             File imageFile = convert2(mFile);
 
             log.info("==============Cloudinary upload method=============");
-            log.info("File Name upload method::::"+imageFile.getName());
             if (imageFile != null){
 
                 log.info("Cloudinary uploading....................");
@@ -77,11 +69,6 @@ public class CloudinaryUpload {
                 uploadResult = cloudinary.uploader().upload(imageFile,
                         ObjectUtils.asMap("resource_type", "auto"));
                 log.info("============================After uploading========================");
-                if (uploadResult.isEmpty()){
-                    log.info("Result is empty");
-                }else {
-                    log.info("Result is not empty");
-                }
                 photoUrl = uploadResult.get("secure_url").toString();
                 log.info("::::::::"+uploadResult.size());
                 log.info("uploadResult String "+ photoUrl);
